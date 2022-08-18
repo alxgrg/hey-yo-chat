@@ -32,6 +32,7 @@ type Props = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   required?: boolean;
+  autocomplete?: string;
 };
 
 const Input: NextPage<Props> = (props) => {
@@ -42,6 +43,7 @@ const Input: NextPage<Props> = (props) => {
       value={props.value}
       onChange={props.onChange}
       required={props.required}
+      autoComplete={props.autocomplete}
       className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
     />
   );
