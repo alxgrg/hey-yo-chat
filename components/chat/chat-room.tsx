@@ -1,44 +1,147 @@
 import type { NextPage } from 'next';
 import { useState, useEffect, useContext } from 'react';
 
-import { ref, push, onValue, getDatabase } from 'firebase/database';
+import {
+  ref,
+  push,
+  onValue,
+  getDatabase,
+  get,
+  remove,
+} from 'firebase/database';
 
 import AuthContext from '../../store/auth-context';
 import { useRouter } from 'next/router';
 
 import Input from '../ui/input';
 import Button from '../ui/button';
+import ScrollToBottom from '../ui/scroll-to-bottom';
 
 const ChatRoom: NextPage = () => {
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<{ id: string; message: string }[]>(
-    []
-  );
+  const [messages, setMessages] = useState<
+    {
+      id: string;
+      chatId: string;
+      username: string;
+      userId: string;
+      message: string;
+    }[]
+  >([]);
+  const [members, setMembers] = useState<
+    {
+      id: string;
+      userId: string;
+      chatId: string;
+      username: string;
+      userNameColor: string;
+      online: boolean;
+    }[]
+  >([]);
 
   const { isLoading, currentUser, signout } = useContext(AuthContext);
 
   const router = useRouter();
 
   useEffect(() => {
-    if (!currentUser && !isLoading) {
-      router.push('/');
+    if (!currentUser) {
+      return;
     }
 
     const db = getDatabase();
-    const messagesRef = ref(db, 'chat-room/messages');
+    const messagesRef = ref(db, 'chat_messages/' + router.query.id);
+    const chatMembersRef = ref(db, 'chat_members/' + router.query.id);
 
+    // Get chat members
+    let isMember: any[] = [];
+
+    const chatMembers = () => {
+      get(chatMembersRef).then((snapshot) => {
+        const data = snapshot.val();
+
+        if (data) {
+          console.log('snapshot', data);
+
+          const formattedData = Object.keys(data).map((id) => data[id]);
+          console.log(
+            'formattedData',
+            formattedData.filter((member) => member.userId === currentUser.uid)
+          );
+
+          isMember = formattedData.filter(
+            (member) => member.userId === currentUser.uid
+          );
+          console.log('isMember', isMember);
+        }
+
+        if (isMember.length === 0) {
+          try {
+            push(chatMembersRef, {
+              userId: currentUser.uid,
+              chatId: router.query.id,
+              username: currentUser.email,
+              online: true,
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      });
+    };
+
+    chatMembers();
+
+    onValue(chatMembersRef, (snapshot) => {
+      const data = snapshot.val();
+      // If no messages in db, nope out.
+      if (!data) {
+        return;
+      }
+
+      const formattedData = Object.keys(data).map((id, i) => {
+        return { id: id, ...data[id] };
+      });
+
+      //  Set message limit
+      const membersLimit = 100;
+
+      // Delete messages if more than messageLimit
+      // if (formattedData.length >= membersLimit) {
+      //   const firstMessage = formattedData[0];
+      //   remove(
+      //     ref(db, 'chat_messages/' + router.query.id + '/' + firstMessage.id)
+      //   );
+      // }
+
+      setMembers(formattedData);
+    });
+
+    // Get messages
     return onValue(messagesRef, (snapshot) => {
       const data = snapshot.val();
       // If no messages in db, nope out.
       if (!data) {
         return;
       }
+
       const formattedData = Object.keys(data).map((id) => {
         return { id: id, ...data[id] };
       });
+
+      //  Set message limit
+      const messageLimit = 10;
+
+      // Delete messages if more than messageLimit
+      if (formattedData.length >= messageLimit) {
+        const firstMessage = formattedData[0];
+        remove(
+          ref(db, 'chat_messages/' + router.query.id + '/' + firstMessage.id)
+        );
+      }
+
       setMessages(formattedData);
     });
-  }, [currentUser, isLoading, router]);
+  }, [currentUser, isLoading, router, members]);
 
   const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
@@ -52,10 +155,12 @@ const ChatRoom: NextPage = () => {
       return;
     }
     const db = getDatabase();
-    const messageRef = ref(db, 'chat-room/messages');
+    const messageRef = ref(db, 'chat_messages/' + router.query.id);
     try {
       push(messageRef, {
-        uid: currentUser.uid,
+        username: currentUser.email,
+        chatId: router.query.id,
+        userId: currentUser.uid,
         message: message,
       });
       setMessage('');
@@ -65,12 +170,19 @@ const ChatRoom: NextPage = () => {
   };
 
   return (
-    <div className='h-11'>
-      <h1>Chat Room</h1>
-      <div className='w-full p-2 border flex flex-col flex-grow overflow-hidden h-32'>
-        {messages.map((message) => (
-          <div key={message.id}>{message.message}</div>
-        ))}
+    <>
+      <div className='w-full p-2 border flex flex-col flex-grow h-full overflow-hidden overflow-y-scroll'>
+        {messages.map((message) => {
+          return (
+            <div key={message.id} className='p-2'>
+              <div>
+                <h1 className='text-xl'>{message.username}: </h1>
+              </div>
+              {message.message}
+            </div>
+          );
+        })}
+        <ScrollToBottom />
       </div>
       <form onSubmit={handleMessageSubmit}>
         <Input
@@ -83,7 +195,7 @@ const ChatRoom: NextPage = () => {
         />
         <Button>Send</Button>
       </form>
-    </div>
+    </>
   );
 };
 
