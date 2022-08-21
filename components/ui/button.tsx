@@ -4,7 +4,9 @@ import React from 'react';
 type Props = {
   children: React.ReactNode;
   color?: string;
-  onClick?: () => void;
+  onClick?: (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => void | Promise<void>;
 };
 
 const Button: NextPage<Props> = ({
