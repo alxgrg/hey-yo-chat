@@ -6,7 +6,7 @@ import SignupForm from '../components/auth/signup-form';
 
 const Signup: NextPage = () => {
   const [email, setEmail] = useState('');
-  const [username, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const authCtx = useContext(AuthContext);
@@ -20,15 +20,16 @@ const Signup: NextPage = () => {
   };
 
   const onChangeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.target.value);
+    setUsername(event.target.value);
   };
 
   const handleSignup = async (email: string, password: string) => {
     try {
-      const user = await authCtx.signup(email, password);
-      console.log(user);
+      const user = await authCtx.signup(email, password, username);
+      // console.log('user', authCtx.currentUser);
       setEmail('');
       setPassword('');
+      setUsername('');
     } catch (error) {
       console.log(error);
     }

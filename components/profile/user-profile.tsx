@@ -46,7 +46,7 @@ const UserProfile = () => {
 
   return (
     <div>
-      <h1>{currentUser && currentUser.displayName}'s Profile</h1>
+      <h1>{currentUser && currentUser.displayName}&apos;s Profile</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <Input

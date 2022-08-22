@@ -17,7 +17,7 @@ interface AuthContextProps {
   isLoading: boolean;
   signin: (email: string, password: string) => Promise<UserCredential>;
   signout: () => Promise<void>;
-  signup: (email: string, password: string) => Promise<UserCredential>;
+  signup: (email: string, password: string, username: string) => Promise<void>;
   updateDisplayName: (displayName: string) => Promise<void>;
 }
 
@@ -53,8 +53,20 @@ export const AuthContextProvider: React.FC<Props> = ({ children }) => {
   const signout = () => {
     return signOut(auth);
   };
-  const signup = (email: string, password: string) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  // const signup = (email: string, password: string) => {
+  //   return createUserWithEmailAndPassword(auth, email, password);
+  // };
+
+  const signup = async (email: string, password: string, username: string) => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(user.user, {
+        displayName: username,
+      });
+      setCurrentUser({ ...user.user, displayName: username });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const updateDisplayName = async (newDisplayName: string) => {
@@ -83,93 +95,3 @@ export const AuthContextProvider: React.FC<Props> = ({ children }) => {
 };
 
 export default AuthContext;
-
-// import { createContext, useState, useEffect } from 'react';
-// import {
-//   onAuthStateChanged,
-//   signInWithEmailAndPassword,
-//   createUserWithEmailAndPassword,
-//   UserCredential,
-//   getAuth,
-//   signOut,
-// } from 'firebase/auth';
-// import { getFirebaseApp } from '../firebaseConfig';
-
-// import type { User } from 'firebase/auth';
-
-// interface AuthContextProps {
-//   user: User | null;
-//   signin: (email: string, password: string) => Promise<User | null>;
-//   signout: () => Promise<void>;
-//   signup: (email: string, password: string) => Promise<User | null>;
-// }
-
-// const AuthContext = createContext({} as AuthContextProps);
-
-// interface Props {
-//   children: React.ReactNode;
-// }
-
-// export const AuthContextProvider: React.FC<Props> = ({ children }) => {
-//   const [user, setUser] = useState<User | null>(null);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<Error | null>(null);
-//   const app = getFirebaseApp();
-//   const auth = getAuth(app);
-
-//   useEffect(() => {
-//     onAuthStateChanged(auth, (user) => {
-//       if (user) {
-//         console.log(user.email);
-//         setUser(user);
-//       } else {
-//         console.log(user);
-//         console.log('not logged in');
-//       }
-//     });
-//   }, [auth]);
-
-//   const signin = async (email: string, password: string) => {
-//     try {
-//       const currentUser = await signInWithEmailAndPassword(
-//         auth,
-//         email,
-//         password
-//       );
-//       setUser(currentUser.user);
-//     } catch (error: Error | any) {
-//       setError(error);
-//       // Maybe return undefined and add type to AuthContextProps
-//     }
-//     return user;
-//   };
-//   const signout = () => {
-//     return signOut(auth);
-//   };
-
-//   const signup = async (email: string, password: string) => {
-//     try {
-//       const currentUser = await createUserWithEmailAndPassword(
-//         auth,
-//         email,
-//         password
-//       );
-//       setUser(currentUser.user);
-//     } catch (error: Error | any) {
-//       setError(error);
-//       // Maybe return undefined and add type to AuthContextProps
-//     }
-//     return user;
-//   };
-
-//   const value: AuthContextProps = {
-//     user,
-//     signin,
-//     signout,
-//     signup,
-//   };
-
-//   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-// };
-
-// export default AuthContext;

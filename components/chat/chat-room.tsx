@@ -17,27 +17,12 @@ import Input from '../ui/input';
 import Button from '../ui/button';
 import ScrollToBottom from '../ui/scroll-to-bottom';
 
+import type { ChatMember, ChatMessage } from '../../types';
+
 const ChatRoom: NextPage = () => {
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<
-    {
-      id: string;
-      chatId: string;
-      username: string;
-      userId: string;
-      message: string;
-    }[]
-  >([]);
-  const [members, setMembers] = useState<
-    {
-      id: string;
-      userId: string;
-      chatId: string;
-      username: string;
-      userNameColor: string;
-      online: boolean;
-    }[]
-  >([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [members, setMembers] = useState<ChatMember[]>([]);
 
   const { isLoading, currentUser, signout } = useContext(AuthContext);
 
@@ -53,7 +38,8 @@ const ChatRoom: NextPage = () => {
     const chatMembersRef = ref(db, 'chat_members/' + router.query.id);
 
     // Get chat members
-    let isMember: any[] = [];
+    // let isMember: any[] = [];
+    let isMember = [];
 
     const chatMembers = () => {
       get(chatMembersRef).then((snapshot) => {

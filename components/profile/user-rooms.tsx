@@ -8,11 +8,11 @@ import AuthContext from '../../store/auth-context';
 import Button from '../ui/button';
 import Input from '../ui/input';
 
+import type { ChatRoom } from '../../types';
+
 const UserRooms = () => {
   const [chatName, setChatName] = useState('');
-  const [chatrooms, setChatrooms] = useState<
-    { id: string; chatId: string; chatName: string }[]
-  >([]);
+  const [chatrooms, setChatrooms] = useState<ChatRoom[]>([]);
 
   const { isLoading, currentUser, signout } = useContext(AuthContext);
 

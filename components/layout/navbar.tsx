@@ -24,8 +24,6 @@ const Navbar: NextPage = () => {
           <Link href='/dashboard'>
             {currentUser && currentUser.displayName
               ? currentUser.displayName
-              : currentUser
-              ? currentUser.email
               : 'yo'}
           </Link>
         </div>
