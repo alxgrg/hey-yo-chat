@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   UserCredential,
+  updateProfile,
   getAuth,
   signOut,
 } from 'firebase/auth';
@@ -17,6 +18,7 @@ interface AuthContextProps {
   signin: (email: string, password: string) => Promise<UserCredential>;
   signout: () => Promise<void>;
   signup: (email: string, password: string) => Promise<UserCredential>;
+  updateDisplayName: (displayName: string) => Promise<void>;
 }
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -55,12 +57,26 @@ export const AuthContextProvider: React.FC<Props> = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  const updateDisplayName = async (newDisplayName: string) => {
+    if (currentUser) {
+      try {
+        const res = await updateProfile(currentUser, {
+          displayName: newDisplayName,
+        });
+        setCurrentUser({ ...currentUser, displayName: newDisplayName });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const value: AuthContextProps = {
     currentUser,
     isLoading,
     signin,
     signout,
     signup,
+    updateDisplayName,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

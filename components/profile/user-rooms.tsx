@@ -76,7 +76,6 @@ const UserRooms = () => {
           chatrooms.map((chatroom) => (
             <div key={chatroom.id} className='p-2 mb-3'>
               <Link href={`/chat/${chatroom.chatId}`}>{chatroom.chatName}</Link>
-              <hr />
             </div>
           ))}
       </div>

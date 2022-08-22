@@ -22,7 +22,11 @@ const Navbar: NextPage = () => {
         </div>
         <div>
           <Link href='/dashboard'>
-            {currentUser ? currentUser.email : 'yo'}
+            {currentUser && currentUser.displayName
+              ? currentUser.displayName
+              : currentUser
+              ? currentUser.email
+              : 'yo'}
           </Link>
         </div>
       </div>

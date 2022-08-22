@@ -66,8 +66,10 @@ type Props = {
   onSignup: (email: string, password: string) => void;
   onChangeEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeUsername: (event: React.ChangeEvent<HTMLInputElement>) => void;
   emailValue: string;
   passwordValue: string;
+  usernameValue: string;
 };
 
 const SignupForm: NextPage<Props> = (props) => {
@@ -75,6 +77,7 @@ const SignupForm: NextPage<Props> = (props) => {
     event.preventDefault();
     const email = props.emailValue;
     const password = props.passwordValue;
+    const username = props.usernameValue;
     if (
       !email ||
       email.trim().length === 0 ||
@@ -98,6 +101,16 @@ const SignupForm: NextPage<Props> = (props) => {
             required
             value={props.emailValue}
             onChange={props.onChangeEmail}
+          />
+        </div>
+        <div>
+          <label htmlFor='username'>username</label>
+          <Input
+            type='text'
+            name='username'
+            required
+            value={props.usernameValue}
+            onChange={props.onChangeUsername}
           />
         </div>
         <div>

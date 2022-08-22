@@ -79,7 +79,7 @@ const ChatRoom: NextPage = () => {
             push(chatMembersRef, {
               userId: currentUser.uid,
               chatId: router.query.id,
-              username: currentUser.email,
+              username: currentUser.displayName,
               online: true,
             });
           } catch (error) {
@@ -158,7 +158,7 @@ const ChatRoom: NextPage = () => {
     const messageRef = ref(db, 'chat_messages/' + router.query.id);
     try {
       push(messageRef, {
-        username: currentUser.email,
+        username: currentUser.displayName,
         chatId: router.query.id,
         userId: currentUser.uid,
         message: message,
@@ -173,12 +173,26 @@ const ChatRoom: NextPage = () => {
     <>
       <div className='w-full p-2 border flex flex-col flex-grow h-full overflow-hidden overflow-y-scroll'>
         {messages.map((message) => {
-          return (
-            <div key={message.id} className='p-2'>
-              <div>
-                <h1 className='text-xl'>{message.username}: </h1>
+          if (currentUser && message.userId === currentUser.uid) {
+            return (
+              <div key={message.id} className='p-2 flex flex-col items-end'>
+                <div>
+                  <h1 className='text-xl'>{message.username} </h1>
+                </div>
+                <div className='p-5 bg-blue-600 rounded-xl w-2/3 sm:w-1/2'>
+                  <p className='text-white'>{message.message}</p>
+                </div>
               </div>
-              {message.message}
+            );
+          }
+          return (
+            <div key={message.id} className='p-2 flex flex-col items-start'>
+              <div>
+                <h1 className='text-xl'>{message.username} </h1>
+              </div>
+              <div className='p-5 bg-slate-600 rounded-xl w-2/3 sm:w-1/2'>
+                <p className='text-white'>{message.message}</p>
+              </div>
             </div>
           );
         })}

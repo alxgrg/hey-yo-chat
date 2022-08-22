@@ -201,13 +201,16 @@
 
 import type { NextPage } from 'next';
 
-import UserRooms from '../components/chat/user-rooms';
+import UserRooms from '../components/profile/user-rooms';
+import UserProfile from '../components/profile/user-profile';
 
 const Dashboard: NextPage = () => {
   return (
     <div className='flex justify-center align-center'>
       <div className='flex flex-col text-3xl w-1/2 text-center'>
-        <h1>User Name&apos;s dashboard</h1>
+        <UserProfile />
+        <div className='p-5' />
+        <hr />
         <UserRooms />
       </div>
     </div>
