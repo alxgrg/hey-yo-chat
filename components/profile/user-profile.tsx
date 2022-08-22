@@ -9,7 +9,7 @@ import Button from '../ui/button';
 
 const UserProfile = () => {
   const [name, setName] = useState('');
-  const { isLoading, currentUser, signout, updateDisplayName } =
+  const { isLoading, currentUser, signout, updateDisplayName, deleteAccount } =
     useContext(AuthContext);
 
   const auth = getAuth();
@@ -44,6 +44,10 @@ const UserProfile = () => {
     //   .catch((error) => console.log('error updating profile'));
   };
 
+  const handleDeleteAccount = async () => {
+    deleteAccount();
+  };
+
   return (
     <div>
       <h1>{currentUser && currentUser.displayName}&apos;s Profile</h1>
@@ -60,6 +64,11 @@ const UserProfile = () => {
           <Button>Change username</Button>
         </div>
       </form>
+      <div>
+        <Button color='bg-red-600' onClick={handleDeleteAccount}>
+          Delete account
+        </Button>
+      </div>
     </div>
   );
 };

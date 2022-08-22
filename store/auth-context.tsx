@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   UserCredential,
   updateProfile,
+  deleteUser,
   getAuth,
   signOut,
 } from 'firebase/auth';
@@ -19,6 +20,7 @@ interface AuthContextProps {
   signout: () => Promise<void>;
   signup: (email: string, password: string, username: string) => Promise<void>;
   updateDisplayName: (displayName: string) => Promise<void>;
+  deleteAccount: () => Promise<void>;
 }
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -82,6 +84,17 @@ export const AuthContextProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
+  const deleteAccount = async () => {
+    if (currentUser) {
+      try {
+        await deleteUser(currentUser);
+        setCurrentUser(null);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const value: AuthContextProps = {
     currentUser,
     isLoading,
@@ -89,6 +102,7 @@ export const AuthContextProvider: React.FC<Props> = ({ children }) => {
     signout,
     signup,
     updateDisplayName,
+    deleteAccount,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
