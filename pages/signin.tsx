@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import React, { useState, useContext } from 'react';
+import { useRouter } from 'next/router';
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import AuthContext from '../store/auth-context';
@@ -11,6 +12,8 @@ const Signin: NextPage = () => {
   const [password, setPassword] = useState('');
 
   const authCtx = useContext(AuthContext);
+
+  const router = useRouter();
 
   const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -26,6 +29,7 @@ const Signin: NextPage = () => {
       console.log(user);
       setEmail('');
       setPassword('');
+      router.push('/dashboard');
     } catch (error) {
       console.log(error);
     }

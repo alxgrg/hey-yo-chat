@@ -94,16 +94,6 @@ const SignupForm: NextPage<Props> = (props) => {
     <form className='flex flex-col' onSubmit={handleSignup}>
       <div>
         <div>
-          <label htmlFor='email'>Email</label>
-          <Input
-            type='text'
-            name='email'
-            required
-            value={props.emailValue}
-            onChange={props.onChangeEmail}
-          />
-        </div>
-        <div>
           <label htmlFor='username'>username</label>
           <Input
             type='text'
@@ -113,6 +103,17 @@ const SignupForm: NextPage<Props> = (props) => {
             onChange={props.onChangeUsername}
           />
         </div>
+        <div>
+          <label htmlFor='email'>Email</label>
+          <Input
+            type='text'
+            name='email'
+            required
+            value={props.emailValue}
+            onChange={props.onChangeEmail}
+          />
+        </div>
+
         <div>
           <label htmlFor='password'>Password</label>
           <Input

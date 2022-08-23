@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 
 import Link from 'next/link';
+import Button from '../ui/button';
 
 const Navbar: NextPage = () => {
   const { isLoading, currentUser, signout } = useContext(AuthContext);
@@ -21,11 +22,11 @@ const Navbar: NextPage = () => {
           </Link>
         </div>
         <div>
-          <Link href='/dashboard'>
-            {currentUser && currentUser.displayName
-              ? currentUser.displayName
-              : 'yo'}
-          </Link>
+          {currentUser && currentUser.displayName ? (
+            <Link href='/dashboard'>{currentUser.displayName}</Link>
+          ) : (
+            <Button href='signin'>Sign in</Button>
+          )}
         </div>
       </div>
     </nav>
