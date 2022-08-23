@@ -11,7 +11,7 @@ const Navbar: NextPage = () => {
   const router = useRouter();
 
   return (
-    <nav className='w-full bg-black p-3 sticky top-0'>
+    <nav className='w-full bg-black p-3 top-0'>
       <div className='flex justify-between text-pink-400 align-middle'>
         <div className='flex'>
           <Link href='/'>

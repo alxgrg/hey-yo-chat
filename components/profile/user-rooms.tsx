@@ -19,9 +19,6 @@ const UserRooms = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!currentUser && !isLoading) {
-      router.push('/');
-    }
     if (!currentUser) {
       return;
     }

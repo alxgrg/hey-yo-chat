@@ -200,11 +200,24 @@
 // export default Dashboard;
 
 import type { NextPage } from 'next';
+import { useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
 
 import UserRooms from '../components/profile/user-rooms';
 import UserProfile from '../components/profile/user-profile';
 
+import AuthContext from '../store/auth-context';
+
 const Dashboard: NextPage = () => {
+  const { isLoading, currentUser, signout } = useContext(AuthContext);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!currentUser && !isLoading) {
+      router.push('/');
+    }
+  }, [currentUser, isLoading, router]);
   return (
     <div className='flex justify-center align-center'>
       <div className='flex flex-col text-3xl w-1/2 text-center'>
