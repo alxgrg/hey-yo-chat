@@ -84,11 +84,13 @@ const UserRooms = () => {
       db,
       'user-chats/' + currentUser.uid + '/' + userChatId
     );
+    const chatMessagesRef = ref(db, 'chat_messages/' + chatId);
 
     try {
       remove(chatRef);
 
       remove(userChatRef);
+      remove(chatMessagesRef);
       console.log('chatRef', chatRef);
       console.log('userChatRef', userChatRef);
     } catch (error) {
