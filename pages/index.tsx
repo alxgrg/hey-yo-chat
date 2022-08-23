@@ -18,6 +18,10 @@ const Home: NextPage = () => {
     }
   }, [currentUser, isLoading, router]);
 
+  if (isLoading || currentUser) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className='bg-slate-600 h-[calc(100vh-60px)] flex flex-col items-center justify-center'>
       <div className='text-white text-center flex flex-col gap-3 py-8 px-5 mb-8'>

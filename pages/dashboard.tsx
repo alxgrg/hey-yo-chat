@@ -226,7 +226,7 @@ const Dashboard: NextPage = () => {
 
   return (
     <div className='flex justify-center align-center'>
-      <div className='flex flex-col text-3xl w-1/2 text-center'>
+      <div className='flex flex-col w-1/2 text-center'>
         <UserProfile />
         <Button onClick={signout}>signout</Button>
         <div className='p-5' />

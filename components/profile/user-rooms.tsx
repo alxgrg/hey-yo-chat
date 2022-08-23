@@ -1,5 +1,12 @@
 import { useEffect, useState, useContext } from 'react';
-import { getDatabase, ref, push, onValue } from 'firebase/database';
+import {
+  getDatabase,
+  ref,
+  push,
+  remove,
+  onValue,
+  child,
+} from 'firebase/database';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -30,6 +37,7 @@ const UserRooms = () => {
       const data = snapshot.val();
       // If no messages in db, nope out.
       if (!data) {
+        setChatrooms([]);
         return;
       }
       const formattedData = Object.keys(data).map((id) => {
@@ -66,15 +74,49 @@ const UserRooms = () => {
     }
   };
 
+  const handleDeleteRoom = (chatId: string, userChatId: string) => {
+    if (!currentUser) {
+      return;
+    }
+    const db = getDatabase();
+    const chatRef = ref(db, 'chats/' + chatId);
+    const userChatRef = ref(
+      db,
+      'user-chats/' + currentUser.uid + '/' + userChatId
+    );
+
+    try {
+      remove(chatRef);
+
+      remove(userChatRef);
+      console.log('chatRef', chatRef);
+      console.log('userChatRef', userChatRef);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div className='flex flex-col'>
-        {chatrooms &&
+        {chatrooms && chatrooms.length > 0 ? (
           chatrooms.map((chatroom) => (
             <div key={chatroom.id} className='p-2 mb-3'>
               <Link href={`/chat/${chatroom.chatId}`}>{chatroom.chatName}</Link>
+              <Button
+                color='bg-red-400'
+                onClick={() => handleDeleteRoom(chatroom.chatId, chatroom.id)}
+              >
+                Delete room
+              </Button>
             </div>
-          ))}
+          ))
+        ) : (
+          <p>
+            You currently have no chatrooms created. Create a room to get
+            started.
+          </p>
+        )}
       </div>
       <form onSubmit={handleCreateRoom}>
         <Input
