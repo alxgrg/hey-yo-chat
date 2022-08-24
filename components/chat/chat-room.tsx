@@ -79,7 +79,6 @@ const ChatRoom: NextPage = () => {
 
     onValue(chatMembersRef, (snapshot) => {
       const data = snapshot.val();
-      console.log('gfhfghfghdfhdfghdfghdfg');
       // If no messages in db, nope out.
       if (!data) {
         router.push('/');
@@ -152,7 +151,6 @@ const ChatRoom: NextPage = () => {
     try {
       const snapshot = await get(chatRoomRef);
       if (snapshot.exists()) {
-        console.log('exists fu');
         try {
           push(messageRef, {
             username: currentUser.displayName,
@@ -165,7 +163,6 @@ const ChatRoom: NextPage = () => {
           console.log(error);
         }
       } else {
-        console.log('doesnrt exfjggh');
         router.push('/');
       }
     } catch (error) {

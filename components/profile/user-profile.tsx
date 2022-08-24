@@ -26,24 +26,29 @@ const UserProfile = () => {
   };
 
   return (
-    <div>
+    <div className='flex flex-col gap-4 align-center'>
       <h1 className='text-3xl'>
         {currentUser && currentUser.displayName}&apos;s Profile
       </h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <Input
-            type='text'
-            name='username'
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
-        </div>
-        <div>
-          <Button>Change username</Button>
+        <div className='flex items-end'>
+          <div className='mr-3'>
+            <label htmlFor='username'>Change username</label>
+            <Input
+              type='text'
+              name='username'
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+          </div>
+          <div>
+            <Button>Save</Button>
+          </div>
         </div>
       </form>
-      <div>
+      <div className='flex'>
+        <Button onClick={signout}>Sign out</Button>
+        <div className='p-2' />
         <Button color='bg-red-600' onClick={handleDeleteAccount}>
           Delete account
         </Button>

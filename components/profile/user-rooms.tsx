@@ -242,16 +242,16 @@ const UserRooms = () => {
 
   return (
     <div>
-      <div className='flex flex-col'>
+      <div className='flex flex-wrap'>
         {chatrooms && chatrooms.length > 0 ? (
           chatrooms.map((chatroom) => (
-            <div key={chatroom.id} className='p-2 mb-3'>
+            <div key={chatroom.id} className='p-4 mb-3 border rounded'>
               <Link href={`/chat/${chatroom.chatId}`}>{chatroom.chatName}</Link>
               <Button
                 color='bg-red-400'
                 onClick={() => handleDeleteRoom(chatroom.chatId, chatroom.id)}
               >
-                Delete room
+                X
               </Button>
             </div>
           ))

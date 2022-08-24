@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import AuthContext from '../store/auth-context';
 
 import Button from '../components/ui/button';
+import UserProfile from '../components/profile/user-profile';
 
 import type { NextPage } from 'next';
 
@@ -23,10 +24,10 @@ const Pofile: NextPage = () => {
   }
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <p>{currentUser?.email}</p>
-      <Button onClick={signout}>signout</Button>
+    <div className='flex flex-col items-center'>
+      <div className='w-1/2 py-8 px-6'>
+        <UserProfile />
+      </div>
     </div>
   );
 };
