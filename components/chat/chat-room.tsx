@@ -79,8 +79,10 @@ const ChatRoom: NextPage = () => {
 
     onValue(chatMembersRef, (snapshot) => {
       const data = snapshot.val();
+      console.log('gfhfghfghdfhdfghdfghdfg');
       // If no messages in db, nope out.
       if (!data) {
+        router.push('/');
         return;
       }
 
@@ -140,16 +142,32 @@ const ChatRoom: NextPage = () => {
     if (!currentUser) {
       return;
     }
+
     const db = getDatabase();
     const messageRef = ref(db, 'chat_messages/' + router.query.id);
+    const chatRoomRef = ref(db, 'chats/' + router.query.id);
+
+    // Check if chatroom still exists and if not redirect.
+    // This prevents orphan chat being created if room creactor deletes room while users are still in chat.
     try {
-      push(messageRef, {
-        username: currentUser.displayName,
-        chatId: router.query.id,
-        userId: currentUser.uid,
-        message: message,
-      });
-      setMessage('');
+      const snapshot = await get(chatRoomRef);
+      if (snapshot.exists()) {
+        console.log('exists fu');
+        try {
+          push(messageRef, {
+            username: currentUser.displayName,
+            chatId: router.query.id,
+            userId: currentUser.uid,
+            message: message,
+          });
+          setMessage('');
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log('doesnrt exfjggh');
+        router.push('/');
+      }
     } catch (error) {
       console.log(error);
     }
