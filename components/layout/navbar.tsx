@@ -16,12 +16,16 @@ const Navbar: NextPage = () => {
 
   useEffect(() => {
     const handleOutsideClicks = ({ target }: MouseEvent) => {
+      const btn = document.getElementById('dropdownButton');
       if (
         showDropdown &&
         dropdownRef.current &&
         !dropdownRef.current?.contains(target as Node)
       ) {
-        setShowDropdown(false);
+        // If target is dropdown button dont fire event imperitively as it conflicts with onClick
+        if ((target as HTMLButtonElement).id !== 'dropdown-button') {
+          setShowDropdown(false);
+        }
       }
     };
     // Bind the event listener
@@ -46,13 +50,14 @@ const Navbar: NextPage = () => {
           {currentUser && currentUser.displayName ? (
             <>
               <button
+                id='dropdown-button'
                 onClick={() => setShowDropdown((prevState) => !prevState)}
               >
                 {currentUser.displayName}
               </button>
               {showDropdown && (
                 <ul
-                  className='absolute p-4 bg-black rounded-md right-0 mt-3 border'
+                  className='absolute p-4 bg-slate-600 rounded-md right-0 mt-3 shadow'
                   ref={dropdownRef}
                 >
                   <li onClick={() => setShowDropdown(false)}>

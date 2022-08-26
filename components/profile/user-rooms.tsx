@@ -257,7 +257,7 @@ const UserRooms = () => {
     <>
       <form
         onSubmit={handleCreateRoom}
-        className='flex justify-center items-center max-w-lg w-full gap-2'
+        className='flex justify-center items-center max-w-xl w-full gap-2'
       >
         <div className='w-2/3'>
           <Input

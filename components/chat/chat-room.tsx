@@ -172,13 +172,13 @@ const ChatRoom: NextPage = () => {
 
   return (
     <>
-      <div className='w-full p-2 border flex flex-col flex-grow h-full overflow-hidden overflow-y-scroll'>
+      <div className='w-full p-2 bg-slate-600 flex flex-col flex-grow h-full overflow-hidden overflow-y-scroll rounded-md'>
         {messages.map((message) => {
           if (currentUser && message.userId === currentUser.uid) {
             return (
               <div key={message.id} className='p-2 flex flex-col items-end'>
                 <div>
-                  <h1 className='text-xl'>{message.username} </h1>
+                  <h1 className='text-xl text-pink-400'>{message.username} </h1>
                 </div>
                 <div className='p-5 bg-blue-600 rounded-xl w-2/3 sm:w-1/2'>
                   <p className='text-white'>{message.message}</p>
@@ -199,7 +199,7 @@ const ChatRoom: NextPage = () => {
         })}
         <ScrollToBottom />
       </div>
-      <form onSubmit={handleMessageSubmit}>
+      <form onSubmit={handleMessageSubmit} className='flex gap-2 mb-2'>
         <Input
           type='text'
           name='message'
