@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import AuthContext from '../../store/auth-context';
 import { useRouter } from 'next/router';
 
@@ -8,12 +8,32 @@ import Link from 'next/link';
 import Button from '../ui/button';
 
 const Navbar: NextPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const { isLoading, currentUser, signout } = useContext(AuthContext);
   const router = useRouter();
 
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClicks = ({ target }: MouseEvent) => {
+      if (
+        showDropdown &&
+        dropdownRef.current &&
+        !dropdownRef.current?.contains(target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+    // Bind the event listener
+    document.addEventListener('mousedown', handleOutsideClicks);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener('mousedown', handleOutsideClicks);
+    };
+  }, [showDropdown]);
+
   return (
-    <nav className='w-full bg-black p-3 top-0'>
+    <nav className='w-full bg-slate-700 p-3 top-0 shadow-md'>
       <div className='flex justify-between text-pink-400 items-center'>
         <div className='flex'>
           <Link href='/'>
@@ -25,23 +45,23 @@ const Navbar: NextPage = () => {
         <div>
           {currentUser && currentUser.displayName ? (
             <>
-              <div
-                onClick={() => {
-                  setIsOpen((prevState) => !prevState);
-                }}
-                className='cursor-pointer'
+              <button
+                onClick={() => setShowDropdown((prevState) => !prevState)}
               >
                 {currentUser.displayName}
-              </div>
-              {isOpen && (
-                <ul className='absolute p-4 bg-black rounded-md right-0 mt-3 border'>
-                  <li>
+              </button>
+              {showDropdown && (
+                <ul
+                  className='absolute p-4 bg-black rounded-md right-0 mt-3 border'
+                  ref={dropdownRef}
+                >
+                  <li onClick={() => setShowDropdown(false)}>
                     <Link href='/profile'>Profile</Link>
                   </li>
-                  <li>
+                  <li onClick={() => setShowDropdown(false)}>
                     <Link href='/dashboard'>Dashboard</Link>
                   </li>
-                  <li>
+                  <li onClick={() => setShowDropdown(false)}>
                     <button onClick={signout}>Sign out</button>
                   </li>
                 </ul>

@@ -8,10 +8,10 @@ type Props = {
 
 const Layout: NextPage<Props> = ({ children }) => {
   return (
-    <div>
+    <>
       <Navbar />
       {children}
-    </div>
+    </>
   );
 };
 

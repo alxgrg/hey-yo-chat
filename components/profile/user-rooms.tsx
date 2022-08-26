@@ -241,7 +241,7 @@ const UserRooms = () => {
   };
 
   return (
-    <div>
+    <>
       <div className='flex flex-wrap'>
         {chatrooms && chatrooms.length > 0 ? (
           chatrooms.map((chatroom) => (
@@ -262,17 +262,19 @@ const UserRooms = () => {
           </p>
         )}
       </div>
-      <form onSubmit={handleCreateRoom}>
-        <Input
-          type='text'
-          name='chat-name'
-          onChange={(e) => setChatName(e.target.value)}
-          required
-          value={chatName}
-        />
-        <Button>Create new room</Button>
-      </form>
-    </div>
+      <div>
+        <form onSubmit={handleCreateRoom}>
+          <Input
+            type='text'
+            name='chat-name'
+            onChange={(e) => setChatName(e.target.value)}
+            required
+            value={chatName}
+          />
+          <Button>Create new room</Button>
+        </form>
+      </div>
+    </>
   );
 };
 
