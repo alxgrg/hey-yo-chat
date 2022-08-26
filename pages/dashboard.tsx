@@ -203,7 +203,7 @@ import type { NextPage } from 'next';
 import { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 
-import UserRooms from '../components/profile/user-rooms';
+import UserRooms from '../components/chat/user-rooms';
 import UserProfile from '../components/profile/user-profile';
 import Button from '../components/ui/button';
 
