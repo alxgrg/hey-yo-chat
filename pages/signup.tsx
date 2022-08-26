@@ -35,8 +35,8 @@ const Signup: NextPage = () => {
     }
   };
   return (
-    <div className='flex flex-col items-center justify-center'>
-      <h1 className='text-xl'>Signup</h1>
+    <div className='flex flex-col items-center justify-center gap-4 text-gray-200'>
+      <h1 className='text-3xl text-pink-400'>Signup</h1>
       <SignupForm
         onSignup={handleSignup}
         onChangeEmail={onChangeEmail}

@@ -30,7 +30,7 @@ const SigninForm: NextPage<Props> = (props) => {
   };
 
   return (
-    <form className='flex flex-col' onSubmit={handleSignin}>
+    <form className='flex flex-col gap-3' onSubmit={handleSignin}>
       <div>
         <div>
           <label htmlFor='email'>Email</label>

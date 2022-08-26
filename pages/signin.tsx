@@ -35,8 +35,8 @@ const Signin: NextPage = () => {
     }
   };
   return (
-    <div className='flex flex-col items-center justify-center'>
-      <h1 className='text-xl'>Signin</h1>
+    <div className='flex flex-col items-center justify-center text-white h-[calc(100vh-60px)] gap-5'>
+      <h1 className='text-3xl text-pink-400'>Signin</h1>
       <SigninForm
         onSignin={handleSignin}
         onChangeEmail={onChangeEmail}

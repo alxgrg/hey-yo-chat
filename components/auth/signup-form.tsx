@@ -91,7 +91,7 @@ const SignupForm: NextPage<Props> = (props) => {
   };
 
   return (
-    <form className='flex flex-col' onSubmit={handleSignup}>
+    <form className='flex flex-col gap-3' onSubmit={handleSignup}>
       <div>
         <div>
           <label htmlFor='username'>username</label>
