@@ -86,11 +86,15 @@
 //     );
 //     const chatMessagesRef = ref(db, 'chat_messages/' + chatId);
 
+//     const chatMembersRef = ref(db, 'chat_members/' + chatId);
+
 //     try {
+//       remove(chatMembersRef);
 //       remove(chatRef);
 
 //       remove(userChatRef);
 //       remove(chatMessagesRef);
+
 //       console.log('chatRef', chatRef);
 //       console.log('userChatRef', userChatRef);
 //     } catch (error) {
@@ -99,17 +103,36 @@
 //   };
 
 //   return (
-//     <div>
-//       <div className='flex flex-col'>
+//     <>
+//       <div className='flex flex-col w-full justify-center max-w-xl'>
+//         <h1 className='text-center text-3xl text-pink-400 p-5'>Dashboard</h1>
+//         <form
+//           onSubmit={handleCreateRoom}
+//           className='flex justify-center max-w-lg'
+//         >
+//           <div className='w-2/3'>
+//             <Input
+//               type='text'
+//               name='chat-name'
+//               onChange={(e) => setChatName(e.target.value)}
+//               required
+//               value={chatName}
+//             />
+//           </div>
+//           <div className=''>
+//             <Button>Create room</Button>
+//           </div>
+//         </form>
+
 //         {chatrooms && chatrooms.length > 0 ? (
 //           chatrooms.map((chatroom) => (
-//             <div key={chatroom.id} className='p-2 mb-3'>
+//             <div key={chatroom.id} className='p-4 mb-3 border rounded'>
 //               <Link href={`/chat/${chatroom.chatId}`}>{chatroom.chatName}</Link>
 //               <Button
 //                 color='bg-red-400'
 //                 onClick={() => handleDeleteRoom(chatroom.chatId, chatroom.id)}
 //               >
-//                 Delete room
+//                 X
 //               </Button>
 //             </div>
 //           ))
@@ -120,17 +143,7 @@
 //           </p>
 //         )}
 //       </div>
-//       <form onSubmit={handleCreateRoom}>
-//         <Input
-//           type='text'
-//           name='chat-name'
-//           onChange={(e) => setChatName(e.target.value)}
-//           required
-//           value={chatName}
-//         />
-//         <Button>Create new room</Button>
-//       </form>
-//     </div>
+//     </>
 //   );
 // };
 
@@ -242,17 +255,37 @@ const UserRooms = () => {
 
   return (
     <>
-      <div className='flex flex-wrap'>
+      <form
+        onSubmit={handleCreateRoom}
+        className='flex justify-center items-center max-w-lg w-full gap-2'
+      >
+        <div className='w-2/3'>
+          <Input
+            type='text'
+            name='chat-name'
+            onChange={(e) => setChatName(e.target.value)}
+            required
+            value={chatName}
+          />
+        </div>
+        <div className=''>
+          <Button>Create room</Button>
+        </div>
+      </form>
+      <div className='flex flex-wrap gap-2 justify-center'>
         {chatrooms && chatrooms.length > 0 ? (
           chatrooms.map((chatroom) => (
-            <div key={chatroom.id} className='p-4 mb-3 border rounded'>
+            <div
+              key={chatroom.id}
+              className='p-4 mb-3 shadow-2xl text-white relative bg-slate-600 rounded-md'
+            >
               <Link href={`/chat/${chatroom.chatId}`}>{chatroom.chatName}</Link>
-              <Button
-                color='bg-red-400'
+              <button
+                className='absolute right-2 top-0 rounded text-red-400'
                 onClick={() => handleDeleteRoom(chatroom.chatId, chatroom.id)}
               >
-                X
-              </Button>
+                x
+              </button>
             </div>
           ))
         ) : (
@@ -261,18 +294,6 @@ const UserRooms = () => {
             started.
           </p>
         )}
-      </div>
-      <div>
-        <form onSubmit={handleCreateRoom}>
-          <Input
-            type='text'
-            name='chat-name'
-            onChange={(e) => setChatName(e.target.value)}
-            required
-            value={chatName}
-          />
-          <Button>Create new room</Button>
-        </form>
       </div>
     </>
   );

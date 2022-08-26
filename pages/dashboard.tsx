@@ -225,7 +225,8 @@ const Dashboard: NextPage = () => {
   }
 
   return (
-    <div className='flex justify-center align-center'>
+    <div className='flex flex-col items-center gap-6'>
+      <h1 className='text-center text-3xl text-pink-400 p-4'>Dashboard</h1>
       <UserRooms />
     </div>
   );
