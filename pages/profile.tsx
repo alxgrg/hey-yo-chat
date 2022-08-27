@@ -7,6 +7,7 @@ import Button from '../components/ui/button';
 import UserProfile from '../components/profile/user-profile';
 
 import type { NextPage } from 'next';
+import LoadingSpinner from '../components/ui/loading-spinner';
 
 const Pofile: NextPage = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const Pofile: NextPage = () => {
 
   return (
     <div className='flex flex-col items-center w-full'>
-      <UserProfile />
+      {isLoading || !currentUser ? <LoadingSpinner /> : <UserProfile />}
     </div>
   );
 };

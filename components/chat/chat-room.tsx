@@ -14,15 +14,16 @@ import AuthContext from '../../store/auth-context';
 import { useRouter } from 'next/router';
 
 import Input from '../ui/input';
-import Button from '../ui/button';
 import ScrollToBottom from '../ui/scroll-to-bottom';
 
 import type { ChatMember, ChatMessage } from '../../types';
+import LoadingSpinner from '../ui/loading-spinner';
 
 const ChatRoom: NextPage = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [members, setMembers] = useState<ChatMember[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const { isLoading, currentUser, signout } = useContext(AuthContext);
 
@@ -105,9 +106,11 @@ const ChatRoom: NextPage = () => {
 
     // Get messages
     return onValue(messagesRef, (snapshot) => {
+      setLoading(true);
       const data = snapshot.val();
       // If no messages in db, nope out.
       if (!data) {
+        setLoading(false);
         return;
       }
 
@@ -116,7 +119,7 @@ const ChatRoom: NextPage = () => {
       });
 
       //  Set message limit
-      const messageLimit = 10;
+      const messageLimit = 100;
 
       // Delete messages if more than messageLimit
       if (formattedData.length >= messageLimit) {
@@ -125,7 +128,7 @@ const ChatRoom: NextPage = () => {
           ref(db, 'chat_messages/' + router.query.id + '/' + firstMessage.id)
         );
       }
-
+      setLoading(false);
       setMessages(formattedData);
     });
   }, [currentUser, isLoading, router, members]);
@@ -173,30 +176,36 @@ const ChatRoom: NextPage = () => {
   return (
     <>
       <div className='w-full p-2 bg-gray-700 border border-gray-600 flex flex-col flex-grow h-full overflow-hidden overflow-y-scroll rounded-md'>
-        {messages.map((message) => {
-          if (currentUser && message.userId === currentUser.uid) {
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          messages.map((message) => {
+            if (currentUser && message.userId === currentUser.uid) {
+              return (
+                <div key={message.id} className='p-2 flex flex-col items-end'>
+                  <div>
+                    <h1 className='text-xl text-pink-400'>
+                      {message.username}{' '}
+                    </h1>
+                  </div>
+                  <div className='p-5 bg-blue-600 rounded-xl w-2/3 sm:w-1/2'>
+                    <p className='text-white'>{message.message}</p>
+                  </div>
+                </div>
+              );
+            }
             return (
-              <div key={message.id} className='p-2 flex flex-col items-end'>
+              <div key={message.id} className='p-2 flex flex-col items-start'>
                 <div>
                   <h1 className='text-xl text-pink-400'>{message.username} </h1>
                 </div>
-                <div className='p-5 bg-blue-600 rounded-xl w-2/3 sm:w-1/2'>
+                <div className='p-5 bg-gray-800 rounded-xl w-2/3 sm:w-1/2'>
                   <p className='text-white'>{message.message}</p>
                 </div>
               </div>
             );
-          }
-          return (
-            <div key={message.id} className='p-2 flex flex-col items-start'>
-              <div>
-                <h1 className='text-xl text-pink-400'>{message.username} </h1>
-              </div>
-              <div className='p-5 bg-gray-800 rounded-xl w-2/3 sm:w-1/2'>
-                <p className='text-white'>{message.message}</p>
-              </div>
-            </div>
-          );
-        })}
+          })
+        )}
         <ScrollToBottom />
       </div>
       <form onSubmit={handleMessageSubmit} className='flex gap-2 mb-2 w-full'>

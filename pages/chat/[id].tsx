@@ -233,9 +233,11 @@ import { ref, get, Database, getDatabase } from 'firebase/database';
 import AuthContext from '../../store/auth-context';
 
 import ChatRoom from '../../components/chat/chat-room';
+import LoadingSpinner from '../../components/ui/loading-spinner';
 
 const ChatPage: NextPage = () => {
   const [chatName, setChatName] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const { isLoading, currentUser, signout } = useContext(AuthContext);
 
@@ -254,10 +256,16 @@ const ChatPage: NextPage = () => {
     //  Set chat name
     const getChatName = async (db: Database) => {
       const chatRef = ref(db, 'chats/' + router.query.id);
-      const res = await get(chatRef);
-      const data = await res.val();
-      const chatName = data.chatName;
-      setChatName(chatName);
+      try {
+        const res = await get(chatRef);
+        const data = await res.val();
+        const chatName = data.chatName;
+        setChatName(chatName);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
     };
 
     getChatName(db);
@@ -265,6 +273,7 @@ const ChatPage: NextPage = () => {
 
   return (
     <div className='flex flex-col h-[calc(100vh-60px)] sm:px-2 gap-3'>
+      {loading && <LoadingSpinner />}
       <div className='flex align-middle'>
         <h2 className='text-2xl text-white'>
           Hey, Yo! -{' '}

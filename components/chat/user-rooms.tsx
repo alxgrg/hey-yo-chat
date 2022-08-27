@@ -10,10 +10,12 @@ import Input from '../ui/input';
 import RoomItem from './room-item';
 
 import type { ChatRoom } from '../../types';
+import LoadingSpinner from '../ui/loading-spinner';
 
 const UserRooms = () => {
   const [chatName, setChatName] = useState('');
   const [chatrooms, setChatrooms] = useState<ChatRoom[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const { isLoading, currentUser, signout } = useContext(AuthContext);
 
@@ -31,14 +33,15 @@ const UserRooms = () => {
       const data = snapshot.val();
       // If no messages in db, nope out.
       if (!data) {
+        setLoading(false);
         setChatrooms([]);
         return;
       }
       const formattedData = Object.keys(data).map((id) => {
         return { id: id, ...data[id] };
       });
+      setLoading(false);
       setChatrooms(formattedData);
-      console.log(formattedData);
     });
   }, [currentUser, isLoading, router]);
 
@@ -95,6 +98,19 @@ const UserRooms = () => {
     }
   };
 
+  let content;
+  if (chatrooms && chatrooms.length > 0) {
+    content = chatrooms.map((chatroom) => (
+      <RoomItem
+        key={chatroom.id}
+        chatroom={chatroom}
+        onDelete={handleDeleteRoom}
+      />
+    ));
+  } else {
+    content = <p className='text-gray-400'>Create a room to get started...</p>;
+  }
+
   return (
     <>
       <form
@@ -115,17 +131,7 @@ const UserRooms = () => {
         </div>
       </form>
       <div className='flex flex-wrap gap-2 justify-center'>
-        {chatrooms && chatrooms.length > 0 ? (
-          chatrooms.map((chatroom) => (
-            <RoomItem
-              key={chatroom.id}
-              chatroom={chatroom}
-              onDelete={handleDeleteRoom}
-            />
-          ))
-        ) : (
-          <p className='text-gray-400'>Create a room to get started...</p>
-        )}
+        {loading ? <LoadingSpinner /> : content}
       </div>
     </>
   );

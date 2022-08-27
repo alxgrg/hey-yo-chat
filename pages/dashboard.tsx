@@ -208,6 +208,7 @@ import UserProfile from '../components/profile/user-profile';
 import Button from '../components/ui/button';
 
 import AuthContext from '../store/auth-context';
+import LoadingSpinner from '../components/ui/loading-spinner';
 
 const Dashboard: NextPage = () => {
   const { isLoading, currentUser, signout } = useContext(AuthContext);
@@ -220,14 +221,16 @@ const Dashboard: NextPage = () => {
     }
   }, [currentUser, isLoading, router]);
 
-  if (isLoading || !currentUser) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <div className='flex flex-col items-center gap-6'>
-      <h1 className='text-center text-3xl text-pink-400 p-4'>Dashboard</h1>
-      <UserRooms />
+      {isLoading || !currentUser ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <h1 className='text-center text-3xl text-pink-400 p-4'>Dashboard</h1>
+          <UserRooms />
+        </>
+      )}
     </div>
   );
 };
