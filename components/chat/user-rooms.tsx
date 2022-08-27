@@ -25,7 +25,7 @@ const UserRooms = () => {
     }
 
     const db = getDatabase();
-    const chatRoomsRef = ref(db, 'user-chats/' + currentUser.uid);
+    const chatRoomsRef = ref(db, 'user_chats/' + currentUser.uid);
 
     return onValue(chatRoomsRef, (snapshot) => {
       const data = snapshot.val();
@@ -49,7 +49,7 @@ const UserRooms = () => {
     }
     const db = getDatabase();
     const chatRef = ref(db, 'chats/');
-    const userChatRef = ref(db, 'user-chats/' + currentUser.uid);
+    const userChatRef = ref(db, 'user_chats/' + currentUser.uid);
     if (!chatName || chatName.trim().length === 0) {
       return;
     }
@@ -76,21 +76,19 @@ const UserRooms = () => {
     const chatRef = ref(db, 'chats/' + chatId);
     const userChatRef = ref(
       db,
-      'user-chats/' + currentUser.uid + '/' + userChatId
+      'user_chats/' + currentUser.uid + '/' + userChatId
     );
     const chatMessagesRef = ref(db, 'chat_messages/' + chatId);
 
     const chatMembersRef = ref(db, 'chat_members/' + chatId);
 
     try {
+      // The order of removal matters here. DB relationships need to be accounted for.
+      remove(chatMessagesRef);
       remove(chatMembersRef);
       remove(chatRef);
 
       remove(userChatRef);
-      remove(chatMessagesRef);
-
-      console.log('chatRef', chatRef);
-      console.log('userChatRef', userChatRef);
     } catch (error) {
       console.log(error);
     }
