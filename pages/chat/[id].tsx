@@ -264,7 +264,7 @@ const ChatPage: NextPage = () => {
   }, [currentUser, isLoading, router]);
 
   return (
-    <div className='flex flex-col h-[calc(100vh-60px)] px-2 gap-2'>
+    <div className='flex flex-col h-[calc(100vh-60px)] sm:px-2 gap-3'>
       <div className='flex align-middle'>
         <h2 className='text-2xl text-white'>
           Hey, Yo! -{' '}

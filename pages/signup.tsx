@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import React, { useState, useContext } from 'react';
+import { useRouter } from 'next/router';
 
 import AuthContext from '../store/auth-context';
 import SignupForm from '../components/auth/signup-form';
@@ -10,6 +11,8 @@ const Signup: NextPage = () => {
   const [password, setPassword] = useState('');
 
   const authCtx = useContext(AuthContext);
+
+  const router = useRouter();
 
   const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -30,12 +33,13 @@ const Signup: NextPage = () => {
       setEmail('');
       setPassword('');
       setUsername('');
+      router.push('/dashboard');
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <div className='flex flex-col items-center justify-center gap-4 text-gray-200'>
+    <div className='flex flex-col items-center justify-center text-white h-[calc(100vh-60px)] gap-5'>
       <h1 className='text-3xl text-pink-400'>Signup</h1>
       <SignupForm
         onSignup={handleSignup}

@@ -172,7 +172,7 @@ const ChatRoom: NextPage = () => {
 
   return (
     <>
-      <div className='w-full p-2 bg-slate-600 flex flex-col flex-grow h-full overflow-hidden overflow-y-scroll rounded-md'>
+      <div className='w-full p-2 bg-gray-700 border border-gray-600 flex flex-col flex-grow h-full overflow-hidden overflow-y-scroll rounded-md'>
         {messages.map((message) => {
           if (currentUser && message.userId === currentUser.uid) {
             return (
@@ -189,9 +189,9 @@ const ChatRoom: NextPage = () => {
           return (
             <div key={message.id} className='p-2 flex flex-col items-start'>
               <div>
-                <h1 className='text-xl'>{message.username} </h1>
+                <h1 className='text-xl text-pink-400'>{message.username} </h1>
               </div>
-              <div className='p-5 bg-slate-600 rounded-xl w-2/3 sm:w-1/2'>
+              <div className='p-5 bg-gray-800 rounded-xl w-2/3 sm:w-1/2'>
                 <p className='text-white'>{message.message}</p>
               </div>
             </div>
@@ -199,7 +199,7 @@ const ChatRoom: NextPage = () => {
         })}
         <ScrollToBottom />
       </div>
-      <form onSubmit={handleMessageSubmit} className='flex gap-2 mb-2'>
+      <form onSubmit={handleMessageSubmit} className='flex gap-2 mb-2 w-full'>
         <Input
           type='text'
           name='message'
@@ -207,8 +207,9 @@ const ChatRoom: NextPage = () => {
           autocomplete='off'
           value={message}
           onChange={handleMessageChange}
+          buttonContent='Send'
+          placeholder='Message...'
         />
-        <Button>Send</Button>
       </form>
     </>
   );

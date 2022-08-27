@@ -21,16 +21,14 @@ const Button: NextPage<Props> = ({
   if (href) {
     return (
       <Link href={href}>
-        <a className={`px-3 py-3 text-white rounded-2xl ${color}`}>
-          {children}
-        </a>
+        <a className={`px-3 py-3 text-white rounded-lg ${color}`}>{children}</a>
       </Link>
     );
   }
   return (
     <button
       onClick={onClick}
-      className={`px-3 py-3 text-white rounded-2xl ${color}`}
+      className={`px-3 py-3 text-white rounded-lg ${color}`}
     >
       {children}
     </button>

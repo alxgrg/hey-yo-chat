@@ -24,10 +24,8 @@ const Pofile: NextPage = () => {
   }
 
   return (
-    <div className='flex flex-col items-center'>
-      <div className='w-1/2 py-8 px-6'>
-        <UserProfile />
-      </div>
+    <div className='flex flex-col items-center w-full'>
+      <UserProfile />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import AuthContext from '../store/auth-context';
@@ -44,6 +45,13 @@ const Signin: NextPage = () => {
         emailValue={email}
         passwordValue={password}
       />
+      <p>
+        Or{' '}
+        <Link href='/signup'>
+          <a className='text-pink-400'>create an account</a>
+        </Link>{' '}
+        to get started
+      </p>
     </div>
   );
 };

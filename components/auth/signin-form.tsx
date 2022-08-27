@@ -32,26 +32,24 @@ const SigninForm: NextPage<Props> = (props) => {
   return (
     <form className='flex flex-col gap-3' onSubmit={handleSignin}>
       <div>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <Input
-            type='text'
-            name='email'
-            required
-            value={props.emailValue}
-            onChange={props.onChangeEmail}
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <Input
-            type='password'
-            name='password'
-            value={props.passwordValue}
-            onChange={props.onChangePassword}
-            required
-          />
-        </div>
+        <Input
+          type='text'
+          name='email'
+          required
+          value={props.emailValue}
+          onChange={props.onChangeEmail}
+          placeholder='Email'
+        />
+      </div>
+      <div>
+        <Input
+          type='password'
+          name='password'
+          value={props.passwordValue}
+          onChange={props.onChangePassword}
+          required
+          placeholder='Password'
+        />
       </div>
 
       <div>

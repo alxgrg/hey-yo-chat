@@ -63,6 +63,7 @@ const UserRooms = () => {
         chatId: newChildRef,
         chatName: chatName,
       });
+      setChatName('');
     } catch (error) {
       console.log(error);
     }
@@ -107,10 +108,10 @@ const UserRooms = () => {
             onChange={(e) => setChatName(e.target.value)}
             required
             value={chatName}
+            buttonContent='Create room'
+            placeholder='Room name...'
+            autocomplete='off'
           />
-        </div>
-        <div className=''>
-          <Button>Create room</Button>
         </div>
       </form>
       <div className='flex flex-wrap gap-2 justify-center'>
@@ -123,10 +124,7 @@ const UserRooms = () => {
             />
           ))
         ) : (
-          <p>
-            You currently have no chatrooms created. Create a room to get
-            started.
-          </p>
+          <p className='text-gray-400'>Create a room to get started...</p>
         )}
       </div>
     </>

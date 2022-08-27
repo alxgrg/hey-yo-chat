@@ -93,37 +93,35 @@ const SignupForm: NextPage<Props> = (props) => {
   return (
     <form className='flex flex-col gap-3' onSubmit={handleSignup}>
       <div>
-        <div>
-          <label htmlFor='username'>username</label>
-          <Input
-            type='text'
-            name='username'
-            required
-            value={props.usernameValue}
-            onChange={props.onChangeUsername}
-          />
-        </div>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <Input
-            type='text'
-            name='email'
-            required
-            value={props.emailValue}
-            onChange={props.onChangeEmail}
-          />
-        </div>
+        <Input
+          type='text'
+          name='username'
+          required
+          value={props.usernameValue}
+          onChange={props.onChangeUsername}
+          placeholder='Username'
+        />
+      </div>
+      <div>
+        <Input
+          type='text'
+          name='email'
+          required
+          value={props.emailValue}
+          onChange={props.onChangeEmail}
+          placeholder='Email'
+        />
+      </div>
 
-        <div>
-          <label htmlFor='password'>Password</label>
-          <Input
-            type='password'
-            name='password'
-            value={props.passwordValue}
-            onChange={props.onChangePassword}
-            required
-          />
-        </div>
+      <div>
+        <Input
+          type='password'
+          name='password'
+          value={props.passwordValue}
+          onChange={props.onChangePassword}
+          required
+          placeholder='Password'
+        />
       </div>
 
       <div>

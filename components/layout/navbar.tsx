@@ -37,7 +37,7 @@ const Navbar: NextPage = () => {
   }, [showDropdown]);
 
   return (
-    <nav className='w-full bg-slate-700 p-3 top-0 shadow-md'>
+    <nav className='w-full bg-gray-800 border-gray-700 border-b p-3 '>
       <div className='flex justify-between text-pink-400 items-center'>
         <div className='flex'>
           <Link href='/'>
@@ -57,7 +57,7 @@ const Navbar: NextPage = () => {
               </button>
               {showDropdown && (
                 <ul
-                  className='absolute p-4 bg-slate-600 rounded-md right-0 mt-3 shadow'
+                  className='absolute p-4 border bg-gray-800 border-gray-700 rounded-md right-0 mt-3 shadow'
                   ref={dropdownRef}
                 >
                   <li onClick={() => setShowDropdown(false)}>

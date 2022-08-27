@@ -23,7 +23,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className='bg-slate-600 h-[calc(100vh-60px)] flex flex-col items-center justify-center'>
+    <div className='bg-gray-800 h-[calc(100vh-60px)] flex flex-col items-center justify-center'>
       <div className='text-white text-center flex flex-col gap-3 py-8 px-5 mb-8'>
         <h1 className='text-3xl text-pink-400'>Hey, Yo!</h1>
         <p>Create room. Share room. Chat room. </p>
