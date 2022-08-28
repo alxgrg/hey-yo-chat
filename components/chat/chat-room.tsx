@@ -184,9 +184,7 @@ const ChatRoom: NextPage = () => {
               return (
                 <div key={message.id} className='p-2 flex flex-col items-end'>
                   <div>
-                    <h1 className='text-xl text-pink-400'>
-                      {message.username}{' '}
-                    </h1>
+                    <h1 className='text-xl text-white'>{message.username} </h1>
                   </div>
                   <div className='p-5 bg-blue-600 rounded-xl w-2/3 sm:w-1/2'>
                     <p className='text-white'>{message.message}</p>
@@ -197,9 +195,9 @@ const ChatRoom: NextPage = () => {
             return (
               <div key={message.id} className='p-2 flex flex-col items-start'>
                 <div>
-                  <h1 className='text-xl text-pink-400'>{message.username} </h1>
+                  <h1 className='text-xl text-white'>{message.username} </h1>
                 </div>
-                <div className='p-5 bg-gray-800 rounded-xl w-2/3 sm:w-1/2'>
+                <div className='p-5 bg-pink-500 rounded-xl w-2/3 sm:w-1/2'>
                   <p className='text-white'>{message.message}</p>
                 </div>
               </div>

@@ -52,11 +52,14 @@ const UserProfile = () => {
       <div className='flex'>
         <Button onClick={signout}>Sign out</Button>
         <div className='p-2' />
-        <Button color='bg-red-600' onClick={() => modalCtx.showModal()}>
+        <Button
+          color='bg-red-600'
+          onClick={() => modalCtx.showModal(currentUser?.uid)}
+        >
           Delete account
         </Button>
       </div>
-      {modalCtx.modal && (
+      {modalCtx.modal && modalCtx.modal.id === currentUser?.uid && (
         <Modal>
           <div className='flex flex-col gap-4'>
             <h1 className='text-xl'>

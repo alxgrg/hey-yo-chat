@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import AuthContext from '../store/auth-context';
+import NotificationContext from '../store/notification-context';
 
 import SigninForm from '../components/auth/signin-form';
 
@@ -13,6 +14,7 @@ const Signin: NextPage = () => {
   const [password, setPassword] = useState('');
 
   const authCtx = useContext(AuthContext);
+  const notificationCtx = useContext(NotificationContext);
 
   const router = useRouter();
 
@@ -32,7 +34,19 @@ const Signin: NextPage = () => {
       setPassword('');
       router.push('/dashboard');
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error) {
+        notificationCtx.showNotification({
+          title: 'Error!',
+          message: error.message,
+          status: 'error',
+        });
+      } else {
+        notificationCtx.showNotification({
+          title: 'Error!',
+          message: 'Unexpected error!',
+          status: 'error',
+        });
+      }
     }
   };
   return (

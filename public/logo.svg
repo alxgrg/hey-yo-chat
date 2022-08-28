@@ -1,0 +1,8 @@
+<svg width="103.07mm" height="42.705mm" version="1.1" viewBox="0 0 103.07 42.705" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-44.52 -72.319)">
+  <rect x="44.52" y="72.319" width="51.008" height="28.418" ry="4.6153" fill="#ec489a"/>
+  <rect x="96.586" y="86.607" width="51.008" height="28.418" ry="4.6153" fill="#3b83f6"/>
+  <text transform="scale(1.1176 .89474)" x="39.833332" y="103.52657" fill="#ffffff" font-size="23.548px" stroke-linecap="round" stroke-linejoin="round" stroke-width=".96118" xml:space="preserve"><tspan x="39.833332" y="103.52657" fill="#ffffff" stroke-width=".96118">Hey</tspan></text>
+  <text transform="scale(1.1782 .84876)" x="83.271675" y="129.03409" fill="#ffffff" font-size="28.807px" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1759" xml:space="preserve"><tspan x="83.271675" y="129.03409" stroke-width="1.1759">Yo!</tspan></text>
+ </g>
+</svg>

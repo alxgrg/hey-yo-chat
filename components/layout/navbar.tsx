@@ -6,6 +6,7 @@ import type { NextPage } from 'next';
 
 import Link from 'next/link';
 import Button from '../ui/button';
+import Image from 'next/image';
 
 const Navbar: NextPage = () => {
   const { isLoading, currentUser, signout } = useContext(AuthContext);
@@ -37,12 +38,13 @@ const Navbar: NextPage = () => {
   }, [showDropdown]);
 
   return (
-    <nav className='w-full bg-gray-800 border-gray-700 border-b p-3 '>
+    <nav className='w-full bg-gray-800 border-gray-700 border-b p-2 '>
       <div className='flex justify-between text-pink-400 items-center'>
         <div className='flex'>
           <Link href='/'>
             <a>
-              <h1 className='text-3xl'>Hey, Yo!</h1>
+              {/* <h1 className='text-3xl'>Hey, Yo!</h1> */}
+              <Image alt='logo' src='/logo.svg' width={90} height={40} />
             </a>
           </Link>
         </div>
