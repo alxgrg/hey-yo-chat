@@ -11,7 +11,6 @@ export type ChatMessage = {
 export type ChatMember = {
   id: string;
   userId: string;
-  chatId: string;
   username: string;
   online: boolean;
 };

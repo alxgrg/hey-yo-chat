@@ -7,6 +7,7 @@ import { ref, get, Database, getDatabase } from 'firebase/database';
 import AuthContext from '../../store/auth-context';
 
 import ChatRoom from '../../components/chat/chat-room';
+import ChatMembers from '../../components/chat/chat-members';
 
 const ChatPage: NextPage = () => {
   const [chatName, setChatName] = useState('');
@@ -49,8 +50,10 @@ const ChatPage: NextPage = () => {
           <span className='text-pink-400'>{chatName && chatName}</span>
         </h2>
       </div>
-
-      <ChatRoom />
+      <div className='flex overflow-hidden gap-2 h-full'>
+        <ChatMembers />
+        <ChatRoom />
+      </div>
     </div>
   );
 };
