@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -34,6 +35,7 @@ export const AuthContextProvider: React.FC<Props> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const app = getFirebaseApp();
   const auth = getAuth(app);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -53,6 +55,7 @@ export const AuthContextProvider: React.FC<Props> = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
   const signout = () => {
+    router.push('/');
     return signOut(auth);
   };
   // const signup = (email: string, password: string) => {
