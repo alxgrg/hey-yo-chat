@@ -59,16 +59,16 @@ const Navbar: NextPage = () => {
               </button>
               {showDropdown && (
                 <ul
-                  className='absolute p-4 border bg-gray-800 border-gray-700 rounded-md right-0 mt-3 shadow'
+                  className='absolute p-4 border bg-gray-800 border-gray-700 rounded-md right-0 mt-3 shadow z-50'
                   ref={dropdownRef}
                 >
-                  <li onClick={() => setShowDropdown(false)}>
+                  <li className='p-2' onClick={() => setShowDropdown(false)}>
                     <Link href='/profile'>Profile</Link>
                   </li>
-                  <li onClick={() => setShowDropdown(false)}>
+                  <li className='p-2' onClick={() => setShowDropdown(false)}>
                     <Link href='/dashboard'>Dashboard</Link>
                   </li>
-                  <li onClick={() => setShowDropdown(false)}>
+                  <li className='p-2' onClick={() => setShowDropdown(false)}>
                     <button onClick={signout}>Sign out</button>
                   </li>
                 </ul>

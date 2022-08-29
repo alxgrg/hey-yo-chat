@@ -31,13 +31,13 @@ const UserProfile = () => {
   };
 
   return (
-    <div className='flex flex-col gap-5 items-center mt-8 max-w-5xl'>
+    <div className='flex flex-col gap-5 items-center mt-8 w-full'>
       <h1 className='text-3xl text-pink-400 text-center'>
         {currentUser && currentUser.displayName}&apos;s Profile
       </h1>
-      <form onSubmit={handleSubmit} className=''>
+      <form onSubmit={handleSubmit} className='w-full'>
         <div className='flex items-end text-white justify-center'>
-          <div className='mr-3 w-72'>
+          <div className='w-full px-4'>
             <Input
               type='text'
               name='username'
