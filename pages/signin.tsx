@@ -8,6 +8,7 @@ import AuthContext from '../store/auth-context';
 import NotificationContext from '../store/notification-context';
 
 import SigninForm from '../components/auth/signin-form';
+import Head from 'next/head';
 
 const Signin: NextPage = () => {
   const [email, setEmail] = useState('');
@@ -50,7 +51,10 @@ const Signin: NextPage = () => {
     }
   };
   return (
-    <div className='flex flex-col items-center justify-center text-white h-[calc(100vh-60px)] gap-5'>
+    <div className='flex flex-col items-center justify-center text-white h-[calc(100vh-63px)] gap-5'>
+      <Head>
+        <title>Sign in to Hey Yo!</title>
+      </Head>
       <h1 className='text-3xl text-pink-400'>Signin</h1>
       <SigninForm
         onSignin={handleSignin}

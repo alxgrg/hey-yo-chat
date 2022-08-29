@@ -151,7 +151,7 @@ const SignupForm: NextPage<Props> = (props) => {
           value={props.confirmPasswordValue}
           onChange={props.onChangeConfirmPassword}
           required
-          placeholder='Confirm assword'
+          placeholder='Confirm password'
         />
       </div>
       {error && <p className='text-red-500'>{error.message}</p>}

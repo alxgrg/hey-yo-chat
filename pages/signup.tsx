@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 import AuthContext from '../store/auth-context';
 import SignupForm from '../components/auth/signup-form';
+import Head from 'next/head';
 
 const Signup: NextPage = () => {
   const [email, setEmail] = useState('');
@@ -46,7 +47,10 @@ const Signup: NextPage = () => {
     }
   };
   return (
-    <div className='flex flex-col items-center justify-center text-white h-[calc(100vh-60px)] gap-5'>
+    <div className='flex flex-col items-center justify-center text-white h-[calc(100vh-63px)] gap-5'>
+      <Head>
+        <title>Sign up for Hey Yo!</title>
+      </Head>
       <h1 className='text-3xl text-pink-400'>Signup</h1>
       <SignupForm
         onSignup={handleSignup}

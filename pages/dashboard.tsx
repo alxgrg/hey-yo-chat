@@ -209,6 +209,7 @@ import Button from '../components/ui/button';
 
 import AuthContext from '../store/auth-context';
 import LoadingSpinner from '../components/ui/loading-spinner';
+import Head from 'next/head';
 
 const Dashboard: NextPage = () => {
   const { isLoading, currentUser, signout } = useContext(AuthContext);
@@ -223,6 +224,9 @@ const Dashboard: NextPage = () => {
 
   return (
     <div className='flex flex-col items-center gap-6'>
+      <Head>
+        <title>{currentUser?.displayName}&apos;s Dashboard /Hey Yo!</title>
+      </Head>
       {isLoading || !currentUser ? (
         <LoadingSpinner />
       ) : (

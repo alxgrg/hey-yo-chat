@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import AuthContext from '../store/auth-context';
 
@@ -22,6 +23,9 @@ const Pofile: NextPage = () => {
 
   return (
     <div className='flex flex-col items-center w-full'>
+      <Head>
+        <title>{currentUser?.displayName}&apos;s Profile /Hey Yo!</title>
+      </Head>
       {isLoading || !currentUser ? <LoadingSpinner /> : <UserProfile />}
     </div>
   );
