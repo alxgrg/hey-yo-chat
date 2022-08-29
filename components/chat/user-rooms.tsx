@@ -117,7 +117,7 @@ const UserRooms = () => {
         onSubmit={handleCreateRoom}
         className='flex justify-center items-center  w-full gap-2'
       >
-        <div className='w-full px-4'>
+        <div className='w-full max-w-xl px-4'>
           <Input
             type='text'
             name='chat-name'

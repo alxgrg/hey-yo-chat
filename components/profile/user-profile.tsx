@@ -37,7 +37,7 @@ const UserProfile = () => {
       </h1>
       <form onSubmit={handleSubmit} className='w-full'>
         <div className='flex items-end text-white justify-center'>
-          <div className='w-full px-4'>
+          <div className='w-full max-w-xl px-4'>
             <Input
               type='text'
               name='username'
