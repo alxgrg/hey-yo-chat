@@ -9,6 +9,7 @@ const Signup: NextPage = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const authCtx = useContext(AuthContext);
 
@@ -20,6 +21,12 @@ const Signup: NextPage = () => {
 
   const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+  };
+
+  const onChangeConfirmPassword = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setConfirmPassword(event.target.value);
   };
 
   const onChangeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,9 +52,11 @@ const Signup: NextPage = () => {
         onSignup={handleSignup}
         onChangeEmail={onChangeEmail}
         onChangePassword={onChangePassword}
+        onChangeConfirmPassword={onChangeConfirmPassword}
         onChangeUsername={onChangeUsername}
         emailValue={email}
         passwordValue={password}
+        confirmPasswordValue={confirmPassword}
         usernameValue={username}
       />
     </div>

@@ -29,9 +29,9 @@ const ChatRoom: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!currentUser) {
-      return;
-    }
+    // if (!currentUser) {
+    //   return;
+    // }
 
     const db = getDatabase();
     const messagesRef = ref(db, 'chat_messages/' + router.query.id);

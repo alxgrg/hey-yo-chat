@@ -20,6 +20,7 @@ const ChatPage: NextPage = () => {
   useEffect(() => {
     if (!currentUser && !isLoading) {
       router.push('/');
+      return;
     }
 
     const db = getDatabase();
@@ -43,7 +44,7 @@ const ChatPage: NextPage = () => {
   }, [currentUser, isLoading, router]);
 
   return (
-    <div className='flex flex-col h-[calc(100vh-60px)] sm:px-2 gap-3'>
+    <div className='flex flex-col h-[calc(100vh-63px)] sm:px-2 gap-3 pt-2'>
       <div className='flex align-middle'>
         <h2 className='text-2xl text-white'>
           Hey, Yo! -{' '}

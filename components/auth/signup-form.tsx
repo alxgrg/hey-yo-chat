@@ -66,24 +66,44 @@ type Props = {
   onSignup: (email: string, password: string) => void;
   onChangeEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeConfirmPassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeUsername: (event: React.ChangeEvent<HTMLInputElement>) => void;
   emailValue: string;
   passwordValue: string;
+  confirmPasswordValue: string;
   usernameValue: string;
 };
 
 const SignupForm: NextPage<Props> = (props) => {
+  const [error, setError] = useState<{ message: string } | null>(null);
   const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setError(null);
+
     const email = props.emailValue;
-    const password = props.passwordValue;
     const username = props.usernameValue;
+    const password = props.passwordValue;
+    const confirmPassword = props.confirmPasswordValue;
     if (
       !email ||
       email.trim().length === 0 ||
+      !username ||
+      username.trim().length === 0 ||
       !password ||
-      password.trim().length === 0
+      password.trim().length === 0 ||
+      !confirmPassword ||
+      confirmPassword.trim().length === 0
     ) {
+      setError({
+        message: 'Must enter valid Username, Email and Password',
+      });
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError({
+        message: 'Passwords do not match!',
+      });
       return;
     }
 
@@ -123,6 +143,18 @@ const SignupForm: NextPage<Props> = (props) => {
           placeholder='Password'
         />
       </div>
+
+      <div>
+        <Input
+          type='password'
+          name='confirm-password'
+          value={props.confirmPasswordValue}
+          onChange={props.onChangeConfirmPassword}
+          required
+          placeholder='Confirm assword'
+        />
+      </div>
+      {error && <p className='text-red-500'>{error.message}</p>}
 
       <div>
         <Button>Submit</Button>

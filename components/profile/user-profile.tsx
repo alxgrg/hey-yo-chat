@@ -65,7 +65,7 @@ const UserProfile = () => {
             <h1 className='text-xl'>
               Are you sure you want to delete your account?
             </h1>
-            <Button color='bg-red-500' onClick={handleDeleteAccount}>
+            <Button color='bg-red-600' onClick={handleDeleteAccount}>
               Delete account
             </Button>
             <Button onClick={modalCtx.hideModal}>Cancel</Button>

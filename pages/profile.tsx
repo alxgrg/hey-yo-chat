@@ -20,10 +20,6 @@ const Pofile: NextPage = () => {
     }
   }, [router, currentUser, isLoading]);
 
-  if (isLoading || !currentUser) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <div className='flex flex-col items-center w-full'>
       {isLoading || !currentUser ? <LoadingSpinner /> : <UserProfile />}
