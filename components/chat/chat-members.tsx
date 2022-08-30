@@ -203,7 +203,7 @@ const ChatMembers = () => {
 
   return (
     <div className='pb-2 sm:flex flex-col h-full overflow-hidden hidden min-w-min w-1/4'>
-      <div className='p-2 bg-gray-700 border rounded border-gray-600 flex flex-col h-full overflow-hidden w-full text-blue-400 font-bold'>
+      <div className='p-2 bg-gray-700 border rounded border-gray-600 flex flex-col h-full overflow-hidden w-full text-pink-400 font-bold'>
         <h2 className='text-gray-400 text-bold text-sm'>ONLINE</h2>
         {members &&
           members.map((member) => {
@@ -211,8 +211,8 @@ const ChatMembers = () => {
               return <div key={member.id}>{member.username}</div>;
             }
             return (
-              <div key={member.id} className='text-pink-400'>
-                <i>{member.username}(You)</i>
+              <div key={member.id} className='text-blue-400'>
+                <b>{member.username}</b>
               </div>
             );
           })}
