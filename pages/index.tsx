@@ -30,7 +30,7 @@ const Home: NextPage = () => {
           {/* <h1 className='text-3xl text-pink-400'>Hey, Yo!</h1> */}
           <p className='text-xl'>Create room. Share room. Chat room. </p>
 
-          <div className='flex items-center mt-3'>
+          <div className='flex sm:flex-row flex-col items-center mt-3'>
             <div className=''>
               <Button href='/signin'>Sign in</Button>
             </div>
